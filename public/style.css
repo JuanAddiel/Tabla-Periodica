@@ -1,0 +1,77 @@
+body{
+    background-color: #455A64;
+}
+.title{
+    color:#fff;
+}
+.element {
+    display: grid;
+    grid-gap: 1px;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(7, 1fr);
+    grid-template-columns: repeat(17, 1fr);
+    text-align: center;
+}
+
+.nonBorder {
+    border-top: 1px solid #455A64!important;
+}
+
+td:hover {
+    background-color: #455A64;
+}
+
+.tablefinal {
+    position: relative;
+    left: 219px;
+    width: 900px;
+    
+
+}
+.leyenda{   
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.alc {
+    background-color: #A13FA7;
+}
+
+.alc-t {
+    background-color: #A73F69;
+}
+
+.metal {
+    background-color: #EB984E;
+}
+
+.lan {
+    background-color: #BA4A00;
+}
+
+.act {
+    background-color: #76448A;
+}
+
+.otro-metal {
+    background-color: #F7DC6F;
+}
+
+.metaloide {
+    background-color: #3FA74E;
+}
+
+.no-metal {
+    background-color: #01DE30;
+}
+
+.halogeno {
+    background-color: #3FA792;
+}
+
+.g-noble {
+    background-color: #0184DE;
+}

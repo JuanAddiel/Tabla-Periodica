@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Periodica</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+    <div class="container text-center mt-4 ">
+        <h1 class="title">Tabla Periodica</h1>
+        <section>
+            <table class="table table-responsive table-bordered table-hover ">
+
+                <tbody>
+                    {{#each grupo}}
+                    <tr>
+
+                        {{#each this}}
+
+                        {{#if (h simbolo)}}
+                        <td style={{color}};>{{h simbolo}}</td>
+                        <td colspan="16px" class="nonBorder"></td>
+                        {{else if (be simbolo) }}
+                        <td style={{color}};>{{be simbolo}}</td>
+                        <td colspan="10px" class="nonBorder"></td>
+
+                        {{else}}
+                        <td style="{{color}}">{{simbolo}}</td>
+                        {{/if}}
+                        {{/each}}
+
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="container">
+                <table class="table table-sm  table-bordered table-hover">
+                    <tbody>
+
+                        <tr>
+                            {{#each Latinido}}
+                            <td style={{color}}>{{simbolo}}</td>
+                            {{/each}}
+                        </tr>
+                        <tr>
+                            {{#each Actinido}}
+                            <td style={{color}}>{{simbolo}}</td>
+                            {{/each}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="row d-flex justify-content-around mt-3">
+                <div class="card alc col-12 col-sm-6 col-md-3 leyenda">Alcalinos</div>
+                <div class="card alc-t col-12 col-sm-6 col-md-3 leyenda">Alcalino Terreos</div>
+                <div class="card metal col-12 col-sm-6 col-md-3 leyenda">Metales de Transicion</div>
+                <div class="card otro-metal col-12 col-sm-6 col-md-3 leyenda">Otros metales</div>
+                <div class="card metaloide col-12 col-sm-6 col-md-3 leyenda">Metaloide</div>
+                <div class="card no-metal col-12 col-sm-6 col-md-3 leyenda">No Metal</div>
+                <div class="card halogeno col-12 col-sm-6 col-md-3 leyenda">Halogeno</div>
+                <div class="card g-noble col-12 col-sm-6 col-md-3 leyenda">Gases Nobles</div>
+                <div class="card lan col-12 col-sm-6 col-md-3 leyenda">Lantanido</div>
+                <div class="card act col-12 col-sm-6 col-md-3 leyenda">Actinidos</div>
+            </div>
+
+        </section>
+    </div>
+</body>
+
+</html>
