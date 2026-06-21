@@ -22,20 +22,11 @@
                     <tr>
 
                         {{#each this}}
-
-                        {{#if (h simbolo)}}
-                        <td style={{color}};>{{h simbolo}}</td>
-                        <td colspan="16px" class="nonBorder"></td>
-                        {{else if (be simbolo) }}
-                        <td style={{color}};>{{be simbolo}}</td>
-                        <td colspan="10px" class="nonBorder"></td>
-
-                        {{else}}
                         <td style="{{color}}">{{simbolo}}</td>
+                        {{#if espacio}}
+                        <td colspan="{{espacio}}" class="nonBorder"></td>
                         {{/if}}
                         {{/each}}
-
-                        </td>
                     </tr>
                     {{/each}}
                 </tbody>

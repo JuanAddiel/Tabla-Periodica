@@ -158,10 +158,207 @@ Actinido:[
 const express = require('express');
 const router = express.Router();
 
+const colorGris = "background-color:#808080;";
+
+const posicionesGrupo = [
+    [
+        { simbolo: 'H', espacio: 16 },
+        'He',
+    ],
+    [
+        'Li',
+        { simbolo: 'Be', espacio: 10 },
+        'B',
+        'C',
+        'N',
+        'O',
+        'F',
+        'Ne',
+    ],
+    [
+        'Na',
+        { simbolo: 'Mg', espacio: 10 },
+        'Al',
+        'Si',
+        'P',
+        'S',
+        'Cl',
+        'Ar',
+    ],
+    [
+        'K',
+        'Ca',
+        'Sc',
+        'Ti',
+        'V',
+        'Cr',
+        'Mn',
+        'Fe',
+        'Co',
+        'Ni',
+        'Cu',
+        'Zn',
+        'Ga',
+        'Ge',
+        'As',
+        'Se',
+        'Br',
+        'Kr',
+    ],
+    [
+        'Rb',
+        'Sr',
+        'Y',
+        'Zr',
+        'Nb',
+        'Mo',
+        'Tc',
+        'Ru',
+        'Rh',
+        'Pd',
+        'Ag',
+        'Cd',
+        'In',
+        'Sn',
+        'Sb',
+        'Te',
+        'I',
+        'Xe',
+    ],
+    [
+        'Cs',
+        'Ba',
+        'La-Lu',
+        'Hf',
+        'Ta',
+        'W',
+        'Re',
+        'Os',
+        'Ir',
+        'Pt',
+        'Au',
+        'Hg',
+        'Tl',
+        'Pb',
+        'Bi',
+        'Po',
+        'At',
+        'Rn',
+    ],
+    [
+        'Fr',
+        'Ra',
+        'Ac-Lr',
+        'Rf',
+        'Db',
+        'Sg',
+        'Bh',
+        'Hs',
+        'Mt',
+        'Ds',
+        'Rg',
+        'Cn',
+        'Nh',
+        'Fl',
+        'Mc',
+        'Lv',
+        'Ts',
+        'Og',
+    ],
+];
+
+const posicionesLatinido = [
+    'La',
+    'Ce',
+    'Pr',
+    'Nd',
+    'Pm',
+    'Sm',
+    'Eu',
+    'Gd',
+    'Tb',
+    'Dy',
+    'Ho',
+    'Er',
+    'Tm',
+    'Yb',
+    'Lu',
+];
+
+const posicionesActinido = [
+    'Ac',
+    'Th',
+    'Pa',
+    'U',
+    'Np',
+    'Pu',
+    'Am',
+    'Cm',
+    'Bk',
+    'Cf',
+    'Es',
+    'Fm',
+    'Md',
+    'No',
+    'Lr',
+];
+
+const crearMapaPorSimbolo = (filas) => {
+    const elementos = new Map();
+
+    filas.flat().forEach((elemento) => {
+        if (elemento && elemento.simbolo) {
+            elementos.set(elemento.simbolo, elemento);
+        }
+    });
+
+    return elementos;
+};
+
+const normalizarPosicion = (posicion) => {
+    if (typeof posicion === 'string') {
+        return { simbolo: posicion };
+    }
+
+    return posicion;
+};
+
+const crearCasillaGris = (espacio) => {
+    return { simbolo: '', tipo: 'Eliminado', color: colorGris, espacio };
+};
+
+const completarHuecos = (filas, posiciones) => {
+    const elementos = crearMapaPorSimbolo(filas);
+
+    return posiciones.map((fila) => {
+        return fila.map((posicion) => {
+            const posicionNormalizada = normalizarPosicion(posicion);
+            const elemento = elementos.get(posicionNormalizada.simbolo);
+
+            if (!elemento) {
+                return crearCasillaGris(posicionNormalizada.espacio);
+            }
+
+            return {
+                ...elemento,
+                espacio: posicionNormalizada.espacio,
+            };
+        });
+    });
+};
+
+const completarHuecosFila = (elementos, posiciones) => {
+    const mapaElementos = crearMapaPorSimbolo([elementos]);
+
+    return posiciones.map((simbolo) => {
+        return mapaElementos.get(simbolo) || crearCasillaGris();
+    });
+};
+
 
 router.get('/home',(req, res, next) =>{
 
-    res.status(200).render('home',{layout:false,tablaPeriodica:tablaPeriodica, periodos:tablaPeriodica.periodos, grupo:tablaPeriodica.grupo, Latinido:tablaDebajo.Latinido, Actinido:tablaDebajo.Actinido});
+    res.status(200).render('home',{layout:false,tablaPeriodica:tablaPeriodica, periodos:tablaPeriodica.periodos, grupo:completarHuecos(tablaPeriodica.grupo, posicionesGrupo), Latinido:completarHuecosFila(tablaDebajo.Latinido, posicionesLatinido), Actinido:completarHuecosFila(tablaDebajo.Actinido, posicionesActinido)});
 });
 
 
